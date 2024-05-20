@@ -3,9 +3,9 @@ import { useRef, ChangeEvent } from 'react'
 import { Input } from '@/components/ui/input.tsx'
 
 import { useDbContext } from '@/contexts/DbContext.tsx'
-
-import { genDatabaseByFile, getBookListSqlResult, formatBookListSql } from '@/helpers/sqlHelpers.ts'
 import { useBookListContext } from '@/contexts/BookListContext.tsx'
+
+import { genDatabaseByFile, getBookListSqlResult, formatBookListSql } from '@/helpers'
 
 const HintText = () => {
   return (

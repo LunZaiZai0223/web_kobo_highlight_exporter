@@ -32,8 +32,6 @@ const useDbContext = () => {
     throw new Error(`useDbContext has to be used within <DbContext.Provider>`)
   }
 
-  console.log('[dbContext in hook]', dbContext)
-
   return dbContext
 }
 

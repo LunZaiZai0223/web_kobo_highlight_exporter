@@ -17,7 +17,7 @@ export const columns: ColumnDef<Book>[] = [
   },
   {
     accessorKey: 'isbn',
-    header: 'Isbn',
+    header: 'ISBN',
   },
   {
     accessorKey: 'releaseDate',

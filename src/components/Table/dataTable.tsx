@@ -39,14 +39,17 @@ export const DataTable = <TData, TValue>({ columns, data, onClickTableRow }: Dat
     onClickTableRow?.(row)
   }
 
-  // console.log('[data-table-table-instance]', table)
-  // console.log('[render-table]')
-  // console.log(table.getColumn('title'))
-  // console.log(columnFilters, '[columnFilters]')
+  /**
+   * TODO:
+   *   1. input 使用 debounce
+   *   2. 新增多個篩選：如作者、出版社以及最近更新的時間 => 可用 last read（開始及結束）
+   *   3. 元件拆分 => 可以看 https://ui.shadcn.com/docs/components/data-table#reusable-components
+   */
 
   return (
-    <div>
+    <>
       <div className="flex items-center py-4">
+        {/* TODO: input 使用 debounce */}
         <Input
           placeholder="Filter titles..."
           value={(table.getColumn('title')?.getFilterValue() as string) ?? ''}
@@ -61,7 +64,7 @@ export const DataTable = <TData, TValue>({ columns, data, onClickTableRow }: Dat
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id}>
+                    <TableHead key={header.id} className={'min-w-32'}>
                       {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                     </TableHead>
                   )
@@ -92,20 +95,22 @@ export const DataTable = <TData, TValue>({ columns, data, onClickTableRow }: Dat
             )}
           </TableBody>
         </Table>
-        <div className="flex items-center justify-end space-x-2 py-4">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
-          >
-            Previous
-          </Button>
-          <Button variant="outline" size="sm" onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
-            Next
-          </Button>
-        </div>
+        {table.getPageCount() > 1 && (
+          <div className="flex items-center justify-end space-x-2 py-4">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => table.previousPage()}
+              disabled={!table.getCanPreviousPage()}
+            >
+              Previous
+            </Button>
+            <Button variant="outline" size="sm" onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
+              Next
+            </Button>
+          </div>
+        )}
       </div>
-    </div>
+    </>
   )
 }
